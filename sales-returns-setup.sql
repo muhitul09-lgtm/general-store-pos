@@ -54,7 +54,7 @@ begin
     raise exception 'Return ID is required.';
   end if;
 
-  if jsonb_typeof(p_return->'items') <> 'array' then
+  if coalesce(jsonb_typeof(p_return->'items'), '') <> 'array' then
     raise exception 'Return items must be an array.';
   end if;
 
@@ -265,3 +265,105 @@ $$;
 
 revoke all on function public.pos_process_return(jsonb) from public;
 grant execute on function public.pos_process_return(jsonb) to authenticated;
+
+
+-- Protect return history and its stock effects from a stale device overwriting
+-- the JSON payload during a later whole-payload sync.
+create or replace function public.pos_preserve_sales_returns_on_update()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+declare
+  v_old_returns jsonb;
+  v_new_returns jsonb;
+  v_products jsonb;
+  v_return jsonb;
+  v_item jsonb;
+  v_sale jsonb;
+  v_sale_item jsonb;
+  v_product_id text;
+  v_qty numeric;
+  v_product_found boolean;
+begin
+  if old.payload is null or new.payload is null then
+    return new;
+  end if;
+
+  v_old_returns := coalesce(old.payload->'returns', '[]'::jsonb);
+  v_new_returns := coalesce(new.payload->'returns', '[]'::jsonb);
+  v_products := coalesce(new.payload->'products', '[]'::jsonb);
+
+  for v_return in
+    select value from jsonb_array_elements(v_old_returns)
+  loop
+    if not exists (
+      select 1
+        from jsonb_array_elements(v_new_returns) as current_return(value)
+       where current_return.value->>'id' = v_return->>'id'
+    ) then
+      v_new_returns := v_new_returns || jsonb_build_array(v_return);
+
+      select s.value
+        into v_sale
+        from jsonb_array_elements(coalesce(old.payload->'sales', '[]'::jsonb)) as s(value)
+       where s.value->>'invoice' = v_return->>'originalInvoice'
+       limit 1;
+
+      for v_item in
+        select value from jsonb_array_elements(coalesce(v_return->'items', '[]'::jsonb))
+      loop
+        v_product_id := v_item->>'productId';
+        v_qty := coalesce(nullif(v_item->>'qty', '')::numeric, 0);
+
+        select exists (
+          select 1
+            from jsonb_array_elements(v_products) as p(value)
+           where p.value->>'id' = v_product_id
+        ) into v_product_found;
+
+        if v_product_found then
+          select coalesce(jsonb_agg(
+            case
+              when p.value->>'id' = v_product_id then
+                jsonb_set(
+                  p.value,
+                  '{stock}',
+                  to_jsonb(coalesce(nullif(p.value->>'stock', '')::numeric, 0) + v_qty),
+                  true
+                )
+              else p.value
+            end
+            order by p.ordinality
+          ), '[]'::jsonb)
+            into v_products
+            from jsonb_array_elements(v_products) with ordinality as p(value, ordinality);
+        else
+          v_sale_item := v_sale->'items'->coalesce(nullif(v_item->>'lineIndex', '')::integer, -1);
+          if v_sale_item is not null and v_sale_item <> 'null'::jsonb then
+            v_products := v_products || jsonb_build_array(jsonb_build_object(
+              'id', v_sale_item->'id',
+              'name', v_sale_item->'name',
+              'barcode', v_sale_item->'barcode',
+              'price', v_sale_item->'price',
+              'cost', v_sale_item->'cost',
+              'stock', v_qty,
+              'image', v_sale_item->'image'
+            ));
+          end if;
+        end if;
+      end loop;
+    end if;
+  end loop;
+
+  new.payload := jsonb_set(new.payload, '{returns}', v_new_returns, true);
+  new.payload := jsonb_set(new.payload, '{products}', v_products, true);
+  return new;
+end;
+$$;
+
+drop trigger if exists pos_preserve_sales_returns_before_update on public.pos_store_data;
+create trigger pos_preserve_sales_returns_before_update
+before update on public.pos_store_data
+for each row
+execute function public.pos_preserve_sales_returns_on_update();
