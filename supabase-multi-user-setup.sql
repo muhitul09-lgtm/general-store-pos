@@ -188,7 +188,7 @@ begin
 
     select jsonb_agg(x.value order by x.ordinality) into v_prefix
     from jsonb_array_elements(new.payload->'sales') with ordinality x(value,ordinality)
-    where x.ordinality <= v_old_count;
+    where x.ordinality > (v_new_count-v_old_count);
     if v_prefix is distinct from coalesce(old.payload->'sales','[]'::jsonb) then
       raise exception 'Cashier permission: existing sales cannot be changed';
     end if;
