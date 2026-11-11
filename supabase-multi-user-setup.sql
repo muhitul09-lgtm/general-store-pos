@@ -238,3 +238,7 @@ with check (user_id = public.pos_current_store_id() and exists (
   select 1 from public.pos_store_members m
   where m.user_id=auth.uid() and m.store_id=user_id and m.role='admin' and m.active=true
 ));
+
+
+-- Refresh the PostgREST API schema cache so the new RPC functions are available immediately.
+notify pgrst, 'reload schema';
