@@ -116,7 +116,7 @@ begin
       raise exception 'Return quantities must be positive whole numbers.';
     end if;
 
-    v_sale_item := v_sale->'items'->v_line_index;
+    v_sale_item := (v_sale->'items')->v_line_index;
 
     if v_sale_item is null or v_sale_item = 'null'::jsonb then
       raise exception 'A selected item does not belong to the original invoice.';
@@ -237,7 +237,7 @@ begin
         into v_products
         from jsonb_array_elements(v_products) with ordinality as p(value, ordinality);
     else
-      v_sale_item := v_sale->'items'->(v_input_item->>'lineIndex')::integer;
+      v_sale_item := (v_sale->'items')->(v_input_item->>'lineIndex')::integer;
       v_products := v_products || jsonb_build_array(jsonb_build_object(
         'id', v_sale_item->'id',
         'name', v_sale_item->'name',
@@ -339,7 +339,7 @@ begin
             into v_products
             from jsonb_array_elements(v_products) with ordinality as p(value, ordinality);
         else
-          v_sale_item := v_sale->'items'->coalesce(nullif(v_item->>'lineIndex', '')::integer, -1);
+          v_sale_item := (v_sale->'items')->coalesce(nullif(v_item->>'lineIndex', '')::integer, -1);
           if v_sale_item is not null and v_sale_item <> 'null'::jsonb then
             v_products := v_products || jsonb_build_array(jsonb_build_object(
               'id', v_sale_item->'id',
