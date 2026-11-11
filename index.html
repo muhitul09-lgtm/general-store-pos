@@ -118,7 +118,7 @@ table{font-size:13px}td,th{padding:13px 10px;border-bottom:1px solid #edf0f6}th{
 const $=id=>document.getElementById(id),KEY='general_store_pos_standalone_v1';
 const SUPABASE_URL='https://ksyrpxveedcbegifyuab.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_c1Ujf0cyGu2oYogkXbM3sg_0_l7oZBD';
-const cloud=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+const cloud=window.supabase?.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 let cloudUser=null,cloudBusy=false,cloudTimer=null,cloudStoreId=null,cloudRole=null;
 function cloudStatus(s){const el=$('cloudStatus');if(el)el.textContent=s}
 function loginStatus(s){const el=$('loginMessage');if(el)el.textContent=s}
