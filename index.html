@@ -102,6 +102,21 @@ body{background:#f4f6fb}
 @media(max-width:1050px){.dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.billing-layout{grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr)}.billing-page .products{max-height:600px}}
 @media(max-width:760px){.page-heading{align-items:flex-start;margin:5px 0 14px}.page-heading h2{font-size:21px}.date-chip{font-size:10px;padding:7px 9px}.dashboard-stats,.billing-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.metric-card{padding:13px;min-height:100px}.metric-card strong{font-size:20px}.metric-note{font-size:9px}.dashboard-panels{grid-template-columns:1fr;gap:11px}.dashboard-panel,.product-panel,.bill-panel{padding:14px}.billing-layout{grid-template-columns:minmax(0,1fr);gap:11px}.bill-panel{position:static}.billing-page .products{max-height:none;min-height:180px;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.billing-page .product{min-height:125px;padding:11px}.product-tools{align-items:stretch}.product-tools .field{min-width:0}.scan-button{padding:9px 10px;font-size:12px}.billing-page .panel-heading h3{font-size:15px}}
 @media(max-width:380px){.dashboard-stats,.billing-stats{grid-template-columns:1fr 1fr}.metric-card strong{font-size:18px}.page-heading{gap:8px}.date-chip{max-width:125px;white-space:normal;text-align:center}}
+
+/* Billing catalogue gets priority space on desktop */
+@media(min-width:1051px){
+ .billing-layout{grid-template-columns:minmax(0,1.8fr) minmax(320px,.82fr);gap:15px}
+ .billing-page .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));max-height:min(58vh,560px);min-height:320px;gap:11px}
+ .product-panel{min-width:0}
+ .bill-panel{min-width:0}
+}
+@media(min-width:761px) and (max-width:1050px){
+ .billing-layout{grid-template-columns:minmax(0,1.35fr) minmax(285px,.9fr);gap:12px}
+ .billing-page .products{grid-template-columns:repeat(auto-fill,minmax(135px,1fr));max-height:520px;min-height:300px}
+}
+@media(min-width:761px){
+ .billing-page .product{min-height:148px}
+}
 </style>
 </head>
 <body>
