@@ -106,7 +106,7 @@ body{background:#f4f6fb}
 /* Billing catalogue gets priority space on desktop */
 @media(min-width:1051px){
  .billing-layout{grid-template-columns:minmax(0,1.8fr) minmax(320px,.82fr);gap:15px}
- .billing-page .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));max-height:min(58vh,560px);min-height:320px;gap:11px}
+ .billing-page .products{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));max-height:min(68vh,680px);min-height:380px;gap:11px}
  .product-panel{min-width:0}
  .bill-panel{min-width:0}
 }
@@ -115,8 +115,15 @@ body{background:#f4f6fb}
  .billing-page .products{grid-template-columns:repeat(auto-fill,minmax(135px,1fr));max-height:520px;min-height:300px}
 }
 @media(min-width:761px){
- .billing-page .product{min-height:148px}
+ .billing-page .product{min-height:132px}
 }
+
+/* Small usability refinements */
+.stock-warning{display:inline-flex;align-self:flex-start;margin-top:7px;padding:3px 7px;border-radius:6px;background:#fff1e8;color:#b45309;font-size:10px;font-weight:750}
+.product:disabled .product-mark{background:#fff0f0;color:#c24141}
+.product .product-mark{font-size:9px}
+.tablebox{-webkit-overflow-scrolling:touch}
+@media(min-width:761px){.billing-page .products{scrollbar-gutter:stable}.bill-panel{max-height:calc(100vh - 36px);overflow:auto}}
 </style>
 </head>
 <body>
@@ -127,7 +134,7 @@ body{background:#f4f6fb}
   <div class="sidebar-label">WORKSPACE</div>
   <nav class="nav no-print" aria-label="Main navigation">
     <button class="active" data-tab="dashboard"><span class="side-icon">⌂</span><span>Dashboard</span></button>
-    <button data-tab="billing"><span class="side-icon">▣</span><span>Billing</span></button>
+    <button data-tab="billing" id="navBillingShortcut"><span class="side-icon">▣</span><span>Billing</span></button>
     <button data-tab="inventory"><span class="side-icon">▦</span><span>Inventory</span></button>
     <button data-tab="sales"><span class="side-icon">▤</span><span>Sales History</span></button>
     <button data-tab="returns"><span class="side-icon">↶</span><span>Returns</span></button>
@@ -140,7 +147,7 @@ body{background:#f4f6fb}
   <div class="sidebar-bottom"><span class="status-dot"></span><span>Store workspace</span></div>
 </aside>
 <div class="workspace">
-<header class="top"><div class="top-heading"><button class="btn sidebar-toggle no-print" id="sidebarToggle" type="button" aria-label="Toggle navigation">☰</button><div><h1>General Store POS</h1><div class="muted small">Point of Sale & Inventory Management</div><div class="muted small" id="activeAccount"></div></div></div><div class="top-actions"><div class="muted small" id="clock"></div><button class="btn" id="logoutButton" type="button">Sign out</button></div></header>
+<header class="top"><div class="top-heading"><button class="btn sidebar-toggle no-print" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-controls="appSidebar" aria-expanded="false">☰</button><div><h1>General Store POS</h1><div class="muted small">Point of Sale & Inventory Management</div><div class="muted small" id="activeAccount"></div></div></div><div class="top-actions"><div class="muted small" id="clock"></div><button class="btn" id="logoutButton" type="button">Sign out</button></div></header>
 <section id="dashboard" class="dashboard-page">
 <div class="page-heading"><div><span class="eyebrow">STORE OVERVIEW</span><h2>Business Overview</h2><p class="muted small">Your store performance at a glance.</p></div><span class="date-chip" id="dashboardDate"></span></div>
 <div class="grid stats dashboard-stats">
@@ -210,7 +217,7 @@ data.returns=Array.isArray(data.returns)?data.returns:[];data.stockAdjustments=A
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));msg('Saved on this device.');if(cloudUser){clearTimeout(cloudTimer);cloudTimer=setTimeout(pushCloud,700)}}catch(e){msg('Storage is full or unavailable. Export a backup.')}};
 const msg=s=>$('notice').textContent=s,day=()=>new Date().toLocaleDateString('en-CA'),isoToday=()=>day();
 function totals(){let sub=cart.reduce((s,c)=>s+c.price*c.qty,0),disc=Math.min(sub,Math.max(0,+$('discount').value||0)),vat=(sub-disc)*Math.max(0,+$('vat').value||0)/100;return{sub,disc,vat,total:sub-disc+vat}}
-function products(){let q=$('searchProduct').value.toLowerCase(),a=data.products.filter(p=>(p.name+' '+p.barcode+' '+(p.category||'')).toLowerCase().includes(q));$('productCount').textContent=a.length+' products';$('productGrid').innerHTML=a.map(p=>`<button class="product" data-add="${p.id}" ${p.stock<=0?'disabled':''}><span class="product-mark">PRODUCT</span><b>${esc(p.name)}</b><span class="muted small">${esc(p.category||'Uncategorized')}</span><strong>${money(p.price)}</strong><span class="muted small">${p.stock} in stock</span></button>`).join('')||'<p class="muted">No products found.</p>'}
+function products(){let q=$('searchProduct').value.toLowerCase(),a=data.products.filter(p=>(p.name+' '+p.barcode+' '+(p.category||'')).toLowerCase().includes(q));$('productCount').textContent=a.length+' products';$('productGrid').innerHTML=a.map(p=>{const stock=Number(p.stock)||0,expired=p.expiryDate&&new Date(p.expiryDate+'T23:59:59')<new Date(),expirySoon=p.expiryDate&&!expired&&Math.ceil((new Date(p.expiryDate+'T00:00:00')-new Date(new Date().toDateString()))/86400000)<=30;return `<button class="product" data-add="${p.id}" ${stock<=0?'disabled':''}><span class="product-mark">${stock<=0?'OUT OF STOCK':stock<=5?'LOW STOCK':'PRODUCT'}</span><b>${esc(p.name)}</b><span class="muted small">${esc(p.category||'Uncategorized')}</span><strong>${money(p.price)}</strong><span class="muted small">${stock} in stock</span>${expired?'<span class="stock-warning">Expired</span>':expirySoon?'<span class="stock-warning">Expires '+esc(p.expiryDate)+'</span>':''}</button>`}).join('')||'<p class="muted">No products found.</p>'}
 function cartView(){let t=totals();$('cartCount').textContent=cart.reduce((s,c)=>s+c.qty,0);$('cartItems').innerHTML=cart.map(c=>`<div class="cartline"><div class="grow"><b>${esc(c.name)}</b><div class="muted">${money(c.price)} each</div></div><div class="qty"><button data-dec="${c.id}">−</button><b>${c.qty}</b><button data-inc="${c.id}">+</button></div><b>${money(c.price*c.qty)}</b><button class="btn danger" data-remove="${c.id}">×</button></div>`).join('')||'<p class="muted center">No products added yet</p>';$('subtotal').textContent=money(t.sub);$('grandTotal').textContent=money(t.total);let r=+$('received').value||0;$('change').textContent=r>=t.total?money(r-t.total):'Due '+money(t.total-r)}
 function add(id){let p=data.products.find(p=>p.id===id),c=cart.find(c=>c.id===id);if(!p||p.stock<=0)return msg('Out of stock.');if(c){if(c.qty>=p.stock)return msg('Not enough stock.');c.qty++}else cart.push({...p,qty:1});cartView()}
 $('productGrid').addEventListener('click',e=>{let b=e.target.closest('[data-add]');if(b)add(+b.dataset.add)});
@@ -261,8 +268,9 @@ $('purchaseForm').onsubmit=e=>{e.preventDefault();const p=data.products.find(x=>
 $('expenseForm').onsubmit=e=>{e.preventDefault();const amount=+$('expenseAmount').value;if(!Number.isFinite(amount)||amount<=0)return msg('Enter a valid expense amount.');data.expenses.push({id:'EXP-'+Date.now(),category:$('expenseCategory').value,amount,date:$('expenseDate').value||isoToday(),payment:$('expensePayment').value,note:$('expenseNote').value.trim()});save();$('expenseForm').reset();$('expenseDate').value=isoToday();render();msg('Expense recorded successfully.')};
 $('expenseRows').addEventListener('click',e=>{const b=e.target.closest('[data-expense-delete]');if(!b)return;const id=b.dataset.expenseDelete;if(confirm('Delete this expense record?')){data.expenses=data.expenses.filter(x=>String(x.id)!==id);save();render();msg('Expense deleted.')}});
 function render(){products();cartView();inventory();sales();returnsView();dues();reports();dashboard();purchasesView();expensesView();let today=day(),t=data.sales.filter(s=>s.day===today),rt=(data.returns||[]).filter(r=>r.day===today);$('todaySales').textContent=money(t.reduce((a,s)=>a+s.total,0)-rt.reduce((a,r)=>a+Number(r.value||0),0));$('todayBills').textContent=t.length}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x===b));['dashboard','billing','inventory','sales','returns','dues','purchases','expenses','reports','settings'].forEach(x=>$(x).classList.toggle('hidden',x!==b.dataset.tab));$('appShell').classList.remove('sidebar-open');render()});
-$('sidebarToggle').onclick=()=>$('appShell').classList.toggle('sidebar-open');
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>{x.classList.toggle('active',x===b);if(x===b)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current')});['dashboard','billing','inventory','sales','returns','dues','purchases','expenses','reports','settings'].forEach(x=>$(x).classList.toggle('hidden',x!==b.dataset.tab));$('appShell').classList.remove('sidebar-open');$('sidebarToggle').setAttribute('aria-expanded','false');render()});
+$('sidebarToggle').onclick=()=>{const open=$('appShell').classList.toggle('sidebar-open');$('sidebarToggle').setAttribute('aria-expanded',String(open))};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('appShell').classList.remove('sidebar-open');$('sidebarToggle').setAttribute('aria-expanded','false')}if(e.key==='F2'&&!e.ctrlKey&&!e.altKey&&!e.metaKey&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)&&$('loginScreen').hidden){e.preventDefault();$('navBillingShortcut')?.click();$('searchProduct').focus()}});
 document.addEventListener('click',e=>{if(window.innerWidth<=760&&$('appShell').classList.contains('sidebar-open')&&!e.target.closest('#appSidebar')&&!e.target.closest('#sidebarToggle'))$('appShell').classList.remove('sidebar-open')});
 $('inventorySearch').oninput=inventory;$('categoryFilter').onchange=inventory;$('salesSearch').oninput=sales;
 function csv(name,rows){let blob=new Blob(['\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
