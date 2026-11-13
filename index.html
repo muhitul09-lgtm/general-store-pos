@@ -124,6 +124,100 @@ body{background:#f4f6fb}
 .product .product-mark{font-size:9px}
 .tablebox{-webkit-overflow-scrolling:touch}
 @media(min-width:761px){.billing-page .products{scrollbar-gutter:stable}.bill-panel{max-height:calc(100vh - 36px);overflow:auto}}
+
+/* Dashboard + billing refinement: restrained surfaces and clearer controls */
+.metric-card{box-shadow:0 3px 12px rgba(27,48,88,.035);border-color:#e7ecf4;min-height:106px;padding:16px 17px}
+.metric-card:after{display:none!important}
+.metric-card:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 4px 4px 0;background:var(--metric-accent,#315be8)}
+.metric-revenue{--metric-accent:#315be8}.metric-profit{--metric-accent:#15966a}.metric-products{--metric-accent:#6678d8}.metric-stock{--metric-accent:#2392b4}.metric-due{--metric-accent:#d58a32}.metric-expenses{--metric-accent:#8a68c8}
+.metric-card strong{font-variant-numeric:tabular-nums}
+.page-heading-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.page-heading-actions .btn{min-height:39px}
+.dashboard-heading{align-items:center}
+.dashboard-panel{min-width:0}
+.panel-link{padding:8px 11px;font-size:11px;box-shadow:none}
+.recent-list,.stock-alert-list{display:flex;flex-direction:column}
+.recent-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:13px;padding:13px 2px;border-bottom:1px solid #edf0f5}
+.recent-row:last-child,.stock-alert-row:last-child{border-bottom:0}
+.recent-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.recent-main b,.stock-alert-copy b{font-size:12px;color:#263653;overflow-wrap:anywhere}
+.recent-main .muted{font-size:10px;overflow-wrap:anywhere}
+.recent-method{padding:4px 7px;border:1px solid #e8edf5;border-radius:7px;color:#697994;font-size:10px;font-weight:700}
+.recent-amount{font-size:12px;color:#1e3155;white-space:nowrap;font-variant-numeric:tabular-nums}
+.stock-alert-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 2px;border-bottom:1px solid #edf0f5}
+.stock-alert-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.stock-alert-copy .muted{font-size:10px}
+.stock-alert-tags{display:flex;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+.alert-pill{display:inline-flex;align-items:center;padding:4px 7px;border-radius:7px;font-size:9px;font-weight:800;white-space:nowrap}
+.alert-low{background:#fff2e9;color:#b45309}.alert-expiry{background:#fff8df;color:#956d0c}.alert-expired{background:#fff0f0;color:#b42332}
+.empty-state{padding:18px 4px;color:#8995a9;font-size:12px}
+.billing-hint kbd{padding:2px 6px;border:1px solid #d4def1;border-bottom-width:2px;border-radius:5px;background:#fff;color:#3154b9;font:700 10px ui-monospace,monospace}
+.product-panel,.bill-panel{border-color:#e5eaf3;box-shadow:0 4px 16px rgba(27,48,88,.04)}
+.product-tools{margin-top:14px}
+.product-tools .field{min-width:0}
+.billing-page .products{align-content:start}
+.billing-page .product{gap:0;background:#fff;border:1px solid #e7ecf4;box-shadow:0 2px 7px rgba(24,43,80,.025)}
+.billing-page .product-meta{width:100%;display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:10px;min-height:20px}
+.product-category{font-size:9px;color:#8290a8;font-weight:700;letter-spacing:.04em;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-status{display:inline-flex;align-items:center;padding:4px 6px;border-radius:6px;font-size:8px;font-weight:850;white-space:nowrap}
+.status-out{background:#fff0f0;color:#b42332}.status-low{background:#fff4e8;color:#ad6816}
+.billing-page .product b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:35px}
+.billing-page .product strong{margin-top:8px;font-size:15px}
+.billing-page .product-stock{margin-top:5px;color:#8290a8;font-size:10px}
+.billing-page .product:disabled{background:#fafbfc}
+.billing-page .product:disabled b,.billing-page .product:disabled strong{color:#8792a5}
+.billing-page .empty-products{grid-column:1/-1;padding:20px;color:#8995a9}
+.bill-panel .panel-heading{padding-bottom:12px;border-bottom:1px solid #edf0f5}
+.bill-panel .formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bill-panel .field{min-width:0;min-height:42px}
+.bill-panel .cartline{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:8px;align-items:center}
+.bill-panel .cartline .grow{min-width:0}
+.bill-panel .cartline .grow b{display:block;overflow-wrap:anywhere}
+.bill-panel .qty{gap:5px}
+.bill-panel .cart-remove{padding:5px 8px;min-width:31px}
+.bill-panel .cart-empty{padding:18px 0}
+.bill-adjust-row{margin-top:8px}
+.bill-adjust-row .field{max-width:116px;text-align:right}
+.bill-divider{border:0;border-top:1px solid #e9edf4;margin:14px 0}
+.bill-total-row{padding:12px 13px;border:1px solid #e2e9f8;border-radius:12px;background:#f7f9ff}
+.bill-total-row>div{display:flex;flex-direction:column;gap:4px}
+.bill-total-row>div b{font-size:13px;color:#263653}
+.bill-total-row .metric-label{font-size:9px;letter-spacing:.1em;color:#7b8bab}
+.bill-panel .bill-help{line-height:1.5;margin:9px 0}
+.bill-change-row{padding:8px 0;margin:5px 0 10px}
+.bill-stock-note{margin:8px 0 0;text-align:center}
+.mobile-cart-jump{display:none}
+@media(max-width:760px){
+ .page-heading-actions{width:100%;justify-content:flex-start}
+ .page-heading-actions .date-chip{margin-right:auto}
+ .dashboard-panels{grid-template-columns:1fr}
+ .recent-row{grid-template-columns:minmax(0,1fr) auto;gap:7px 10px}
+ .recent-method{grid-column:1;grid-row:2;width:max-content}
+ .recent-amount{grid-column:2;grid-row:1/3}
+ .stock-alert-row{align-items:flex-start}
+ .stock-alert-tags{max-width:46%}
+ .billing-page{padding-bottom:78px}
+ .bill-panel{max-height:none}
+ .bill-panel .formgrid{grid-template-columns:1fr}
+ .bill-panel .cartline{grid-template-columns:minmax(0,1fr) auto auto;gap:7px}
+ .bill-panel .cartline .cart-remove{grid-column:3;grid-row:1}
+ .bill-panel .cartline>.qty{grid-column:2;grid-row:1}
+ .bill-panel .cartline> b:last-of-type{grid-column:1;grid-row:2}
+ .mobile-cart-jump{position:fixed;left:12px;right:12px;bottom:12px;z-index:15;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border:1px solid #263f70;border-radius:14px;background:#172a4c;color:#fff;box-shadow:0 10px 28px rgba(13,27,54,.24);text-align:left}
+ .mobile-cart-label{display:flex;flex-direction:column;gap:3px;font-weight:750;font-size:12px}
+ .mobile-cart-label small{color:#b8c7e4;font-size:10px;font-weight:500}
+ .mobile-cart-jump strong{font-size:16px;color:#fff;font-variant-numeric:tabular-nums}
+}
+@media(max-width:430px){
+ .page-heading-actions .btn{flex:1}
+ .page-heading-actions .date-chip{flex-basis:100%;justify-content:flex-start}
+ .dashboard-heading{align-items:flex-start}
+ .dashboard-heading .page-heading-actions{gap:7px}
+ .dashboard-heading .page-heading-actions .date-chip{flex-basis:100%}
+ .bill-panel .cartline{grid-template-columns:minmax(0,1fr) auto auto}
+ .bill-adjust-row .field{max-width:104px}
+}
+
 </style>
 </head>
 <body>
@@ -149,19 +243,70 @@ body{background:#f4f6fb}
 <div class="workspace">
 <header class="top"><div class="top-heading"><button class="btn sidebar-toggle no-print" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-controls="appSidebar" aria-expanded="false">☰</button><div><h1>General Store POS</h1><div class="muted small">Point of Sale & Inventory Management</div><div class="muted small" id="activeAccount"></div></div></div><div class="top-actions"><div class="muted small" id="clock"></div><button class="btn" id="logoutButton" type="button">Sign out</button></div></header>
 <section id="dashboard" class="dashboard-page">
-<div class="page-heading"><div><span class="eyebrow">STORE OVERVIEW</span><h2>Business Overview</h2><p class="muted small">Your store performance at a glance.</p></div><span class="date-chip" id="dashboardDate"></span></div>
+<div class="page-heading dashboard-heading">
+  <div><span class="eyebrow">STORE OVERVIEW</span><h2>Business Overview</h2><p class="muted small">Your store performance at a glance.</p></div>
+  <div class="page-heading-actions"><span class="date-chip" id="dashboardDate"></span><button class="btn" id="dashAddProduct" type="button">Add Product</button><button class="btn primary" id="dashNewSale" type="button">New Sale</button></div>
+</div>
 <div class="grid stats dashboard-stats">
-<div class="stat metric-card metric-revenue"><span class="metric-label">Today's Revenue</span><strong id="dashRevenue">৳0</strong><span class="metric-note">Sales after returns</span></div><div class="stat metric-card metric-profit"><span class="metric-label">Today's Net Profit</span><strong id="dashProfit">৳0</strong><span class="metric-note">After recorded expenses</span></div><div class="stat metric-card metric-products"><span class="metric-label">Total Products</span><strong id="dashProducts">0</strong><span class="metric-note">Products in catalogue</span></div><div class="stat metric-card metric-stock"><span class="metric-label">Stock Value (Cost)</span><strong id="dashStockValue">৳0</strong><span class="metric-note">Current inventory value</span></div><div class="stat metric-card metric-due"><span class="metric-label">Outstanding Due</span><strong id="dashDue">৳0</strong><span class="metric-note">Customer balances</span></div><div class="stat metric-card metric-expenses"><span class="metric-label">Today's Expenses</span><strong id="dashExpenses">৳0</strong><span class="metric-note">Expenses recorded today</span></div></div>
-<div class="grid dashboard-panels"><div class="panel dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">LATEST ACTIVITY</span><h3>Recent Transactions</h3></div><span class="panel-symbol">↗</span></div><div id="dashRecent" class="tablebox"></div></div><div class="panel dashboard-panel"><div class="panel-heading"><div><span class="eyebrow">INVENTORY HEALTH</span><h3>Stock Attention</h3></div><span class="panel-symbol">!</span></div><div id="dashLowStock"></div></div></div>
+  <div class="stat metric-card metric-revenue"><span class="metric-label">Today's Revenue</span><strong id="dashRevenue">৳0</strong><span class="metric-note">Sales after returns</span></div>
+  <div class="stat metric-card metric-profit"><span class="metric-label">Today's Net Profit</span><strong id="dashProfit">৳0</strong><span class="metric-note">After recorded expenses</span></div>
+  <div class="stat metric-card metric-products"><span class="metric-label">Total Products</span><strong id="dashProducts">0</strong><span class="metric-note">Products in catalogue</span></div>
+  <div class="stat metric-card metric-stock"><span class="metric-label">Stock Value (Cost)</span><strong id="dashStockValue">৳0</strong><span class="metric-note">Current inventory value</span></div>
+  <div class="stat metric-card metric-due"><span class="metric-label">Outstanding Due</span><strong id="dashDue">৳0</strong><span class="metric-note">Customer balances</span></div>
+  <div class="stat metric-card metric-expenses"><span class="metric-label">Today's Expenses</span><strong id="dashExpenses">৳0</strong><span class="metric-note">Expenses recorded today</span></div>
+</div>
+<div class="grid dashboard-panels">
+  <div class="panel dashboard-panel">
+    <div class="panel-heading"><div><span class="eyebrow">LATEST ACTIVITY</span><h3>Recent Transactions</h3></div><button class="btn panel-link" id="dashSalesLink" type="button">View all</button></div>
+    <div id="dashRecent" class="recent-list"></div>
+  </div>
+  <div class="panel dashboard-panel">
+    <div class="panel-heading"><div><span class="eyebrow">INVENTORY HEALTH</span><h3>Stock Attention</h3></div><button class="btn panel-link" id="dashInventoryLink" type="button">Inventory</button></div>
+    <div id="dashLowStock" class="stock-alert-list"></div>
+  </div>
+</div>
 </section>
 <section id="billing" class="hidden billing-page">
-<div class="page-heading billing-heading"><div><span class="eyebrow">POINT OF SALE</span><h2>Create a Bill</h2><p class="muted small">Find products, add them to the cart and complete checkout.</p></div><span class="date-chip billing-hint">Fast checkout</span></div>
-<div class="grid stats billing-stats"><div class="stat metric-card metric-revenue"><span class="metric-label">Today's Sales</span><strong id="todaySales">৳0</strong><span class="metric-note">Net sales today</span></div><div class="stat metric-card metric-products"><span class="metric-label">Today's Bills</span><strong id="todayBills">0</strong><span class="metric-note">Completed transactions</span></div><div class="stat metric-card metric-stock"><span class="metric-label">Cart Items</span><strong id="cartCount">0</strong><span class="metric-note">Items in current bill</span></div></div>
+<div class="page-heading billing-heading">
+  <div><span class="eyebrow">POINT OF SALE</span><h2>Create a Bill</h2><p class="muted small">Find products, add them to the cart and complete checkout.</p></div>
+  <span class="date-chip billing-hint">Press <kbd>F2</kbd> to search</span>
+</div>
+<div class="grid stats billing-stats">
+  <div class="stat metric-card metric-revenue"><span class="metric-label">Today's Sales</span><strong id="todaySales">৳0</strong><span class="metric-note">Net sales today</span></div>
+  <div class="stat metric-card metric-products"><span class="metric-label">Today's Bills</span><strong id="todayBills">0</strong><span class="metric-note">Completed transactions</span></div>
+  <div class="stat metric-card metric-stock"><span class="metric-label">Cart Items</span><strong id="cartCount" aria-live="polite">0</strong><span class="metric-note">Items in current bill</span></div>
+</div>
 <div class="grid pos billing-layout">
-<div class="panel product-panel"><div class="panel-heading"><div><span class="eyebrow">PRODUCT CATALOGUE</span><h3>Select Products</h3></div><span class="tag" id="productCount">0 products</span></div><div class="row product-tools"><input class="field" id="searchProduct" placeholder="Search product name or barcode…" aria-label="Search product or barcode"><button class="btn scan-button" id="scanBarcode" type="button">▦ Scan barcode</button></div><p class="muted small scanner-tip">USB/Bluetooth barcode scanners can type directly into the search box.</p><div class="products" id="productGrid"></div></div>
-<div class="panel bill-panel"><div class="panel-heading"><div><span class="eyebrow">CHECKOUT</span><h3>Current Bill</h3></div><button class="btn danger" id="clearCart">Clear bill</button></div><div class="formgrid"><div><label>Customer name (optional)</label><input class="field" id="customer" placeholder="Walk-in customer" autocomplete="name"></div><div><label>Customer phone number (optional)</label><input class="field" id="customerPhone" type="tel" inputmode="tel" maxlength="20" placeholder="01XXXXXXXXX" autocomplete="tel"></div></div><div id="cartItems" style="margin:10px 0"><p class="muted center">No products added yet</p></div>
-<div class="row"><span class="muted">Subtotal</span><b id="subtotal">৳0</b></div><div class="row" style="margin-top:8px"><label for="discount">Discount (৳)</label><input class="field" id="discount" type="number" min="0" value="0" style="max-width:120px"></div><div class="row"><label for="vat">VAT (%)</label><input class="field" id="vat" type="number" min="0" max="100" value="0" style="max-width:90px"></div><hr style="border:0;border-top:1px solid var(--line)"><div class="row"><b>Grand Total</b><span class="total" id="grandTotal">৳0</span></div>
-<label>Payment method</label><select class="field" id="payment"><option>Cash</option><option>bKash</option><option>Nagad</option><option>Card</option></select><label>Amount received (৳)</label><input class="field" id="received" type="number" min="0" placeholder="Enter amount received (partial payment allowed)"><p class="muted small">For credit sales, enter the amount paid now. Remaining balance will be added to Customer Due. A customer name is required for unpaid balance.</p><div class="row" style="margin:10px 0"><span class="muted">Change / Due</span><b id="change">৳0</b></div><button class="btn primary" style="width:100%" id="checkout">✓ Complete Sale & Print Receipt</button><p class="muted small">Stock updates after a successful sale.</p></div></div>
+  <div class="panel product-panel">
+    <div class="panel-heading"><div><span class="eyebrow">PRODUCT CATALOGUE</span><h3>Select Products</h3></div><span class="tag" id="productCount">0 products</span></div>
+    <div class="row product-tools"><input class="field" id="searchProduct" type="search" placeholder="Search product name or barcode…" aria-label="Search product or barcode"><button class="btn scan-button" id="scanBarcode" type="button">Scan barcode</button></div>
+    <p class="muted small scanner-tip">USB/Bluetooth barcode scanners can type directly into the search box.</p>
+    <div class="products" id="productGrid"></div>
+  </div>
+  <div class="panel bill-panel" id="billPanel">
+    <div class="panel-heading"><div><span class="eyebrow">CHECKOUT</span><h3>Current Bill</h3></div><button class="btn danger" id="clearCart" type="button">Clear bill</button></div>
+    <div class="formgrid">
+      <div><label for="customer">Customer name (optional)</label><input class="field" id="customer" placeholder="Walk-in customer" autocomplete="name"></div>
+      <div><label for="customerPhone">Customer phone number (optional)</label><input class="field" id="customerPhone" type="tel" inputmode="tel" maxlength="20" placeholder="01XXXXXXXXX" autocomplete="tel"></div>
+    </div>
+    <div id="cartItems" style="margin:10px 0"><p class="muted center">No products added yet</p></div>
+    <div class="row"><span class="muted">Subtotal</span><b id="subtotal">৳0</b></div>
+    <div class="row bill-adjust-row"><label for="discount">Discount (৳)</label><input class="field" id="discount" type="number" min="0" value="0"></div>
+    <div class="row bill-adjust-row"><label for="vat">VAT (%)</label><input class="field" id="vat" type="number" min="0" max="100" value="0"></div>
+    <hr class="bill-divider">
+    <div class="row bill-total-row"><div><span class="metric-label">AMOUNT TO PAY</span><b>Grand Total</b></div><span class="total" id="grandTotal">৳0</span></div>
+    <label for="payment">Payment method</label><select class="field" id="payment"><option>Cash</option><option>bKash</option><option>Nagad</option><option>Card</option></select>
+    <label for="received">Amount received (৳)</label><input class="field" id="received" type="number" min="0" placeholder="Enter amount received (partial payment allowed)">
+    <p class="muted small bill-help">For credit sales, enter the amount paid now. Remaining balance will be added to Customer Due. A customer name is required for unpaid balance.</p>
+    <div class="row bill-change-row"><span class="muted">Change / Due</span><b id="change">৳0</b></div>
+    <button class="btn primary" style="width:100%" id="checkout" type="button">Complete Sale &amp; Print Receipt</button>
+    <p class="muted small bill-stock-note">Stock updates after a successful sale.</p>
+  </div>
+</div>
+<button class="mobile-cart-jump" id="mobileCartJump" type="button" aria-label="View current bill">
+  <span class="mobile-cart-label"><span>View current bill</span><small id="mobileCartCount">0 items</small></span>
+  <strong id="mobileCartTotal">৳0</strong>
+</button>
 </section>
 <section id="inventory" class="hidden"><div class="row"><div><h2>Inventory Management</h2><p class="muted small">Add, edit and manage stock.</p></div><button class="btn primary" id="addProduct">+ Add Product</button></div><div class="actions" style="margin:12px 0"><input class="field" id="inventorySearch" placeholder="Search name, barcode or category…" style="max-width:350px"><select class="field" id="categoryFilter" style="max-width:190px"><option value="">All categories</option></select><button class="btn" id="exportProducts">Export CSV</button></div><div class="panel tablebox"><table><thead><tr><th>Product</th><th>Category</th><th>Barcode</th><th>Price</th><th>Stock</th><th>Expiry</th><th>Actions</th></tr></thead><tbody id="inventoryRows"></tbody></table></div><p class="muted small" id="stockSummary"></p><div class="panel tablebox" style="margin-top:14px"><h3>Recent Stock Adjustments</h3><table><thead><tr><th>Date</th><th>Product</th><th>Change</th><th>Reason</th><th>Stock After</th></tr></thead><tbody id="adjustmentRows"></tbody></table></div></section>
 <section id="sales" class="hidden"><div class="row"><div><h2>Sales History</h2><p class="muted small">Completed transactions and linked returns.</p></div><button class="btn" id="exportSales">Export CSV</button></div><input class="field" id="salesSearch" placeholder="Search invoice or customer…" style="max-width:350px;margin:10px 0"><div class="panel tablebox"><table><thead><tr><th>Invoice</th><th>Date</th><th>Customer</th><th>Payment</th><th>Original</th><th>Returned</th><th>Net</th><th>Actions</th></tr></thead><tbody id="salesRows"></tbody></table></div></section>
@@ -217,8 +362,39 @@ data.returns=Array.isArray(data.returns)?data.returns:[];data.stockAdjustments=A
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));msg('Saved on this device.');if(cloudUser){clearTimeout(cloudTimer);cloudTimer=setTimeout(pushCloud,700)}}catch(e){msg('Storage is full or unavailable. Export a backup.')}};
 const msg=s=>$('notice').textContent=s,day=()=>new Date().toLocaleDateString('en-CA'),isoToday=()=>day();
 function totals(){let sub=cart.reduce((s,c)=>s+c.price*c.qty,0),disc=Math.min(sub,Math.max(0,+$('discount').value||0)),vat=(sub-disc)*Math.max(0,+$('vat').value||0)/100;return{sub,disc,vat,total:sub-disc+vat}}
-function products(){let q=$('searchProduct').value.toLowerCase(),a=data.products.filter(p=>(p.name+' '+p.barcode+' '+(p.category||'')).toLowerCase().includes(q));$('productCount').textContent=a.length+' products';$('productGrid').innerHTML=a.map(p=>{const stock=Number(p.stock)||0,expired=p.expiryDate&&new Date(p.expiryDate+'T23:59:59')<new Date(),expirySoon=p.expiryDate&&!expired&&Math.ceil((new Date(p.expiryDate+'T00:00:00')-new Date(new Date().toDateString()))/86400000)<=30;return `<button class="product" data-add="${p.id}" ${stock<=0?'disabled':''}><span class="product-mark">${stock<=0?'OUT OF STOCK':stock<=5?'LOW STOCK':'PRODUCT'}</span><b>${esc(p.name)}</b><span class="muted small">${esc(p.category||'Uncategorized')}</span><strong>${money(p.price)}</strong><span class="muted small">${stock} in stock</span>${expired?'<span class="stock-warning">Expired</span>':expirySoon?'<span class="stock-warning">Expires '+esc(p.expiryDate)+'</span>':''}</button>`}).join('')||'<p class="muted">No products found.</p>'}
-function cartView(){let t=totals();$('cartCount').textContent=cart.reduce((s,c)=>s+c.qty,0);$('cartItems').innerHTML=cart.map(c=>`<div class="cartline"><div class="grow"><b>${esc(c.name)}</b><div class="muted">${money(c.price)} each</div></div><div class="qty"><button data-dec="${c.id}">−</button><b>${c.qty}</b><button data-inc="${c.id}">+</button></div><b>${money(c.price*c.qty)}</b><button class="btn danger" data-remove="${c.id}">×</button></div>`).join('')||'<p class="muted center">No products added yet</p>';$('subtotal').textContent=money(t.sub);$('grandTotal').textContent=money(t.total);let r=+$('received').value||0;$('change').textContent=r>=t.total?money(r-t.total):'Due '+money(t.total-r)}
+function products(){
+ const q=$('searchProduct').value.toLowerCase();
+ const list=data.products.filter(p=>(p.name+' '+p.barcode+' '+(p.category||'')).toLowerCase().includes(q));
+ $('productCount').textContent=list.length+' products';
+ $('productGrid').innerHTML=list.map(p=>{
+  const stock=Number(p.stock)||0;
+  const expired=p.expiryDate&&new Date(p.expiryDate+'T23:59:59')<new Date();
+  const expirySoon=p.expiryDate&&!expired&&Math.ceil((new Date(p.expiryDate+'T00:00:00')-new Date(new Date().toDateString()))/86400000)<=30;
+  const status=stock<=0?'<span class="product-status status-out">OUT OF STOCK</span>':stock<=5?'<span class="product-status status-low">LOW STOCK</span>':'';
+  return `<button class="product" type="button" data-add="${p.id}" ${stock<=0?'disabled':''} aria-label="Add ${esc(p.name)} to bill, ${money(p.price)}">
+   <span class="product-meta"><span class="product-category">${esc(p.category||'Uncategorized')}</span>${status}</span>
+   <b>${esc(p.name)}</b>
+   <strong>${money(p.price)}</strong>
+   <span class="product-stock">${stock} in stock</span>
+   ${expired?'<span class="stock-warning">Expired</span>':expirySoon?'<span class="stock-warning">Expires '+esc(p.expiryDate)+'</span>':''}
+  </button>`;
+ }).join('')||'<p class="muted empty-products">No products found.</p>';
+}
+function cartView(){
+ const t=totals(),count=cart.reduce((sum,item)=>sum+item.qty,0);
+ $('cartCount').textContent=count;
+ $('mobileCartCount').textContent=count+' '+(count===1?'item':'items');
+ $('mobileCartTotal').textContent=money(t.total);
+ $('cartItems').innerHTML=cart.map(c=>`<div class="cartline">
+  <div class="grow"><b>${esc(c.name)}</b><div class="muted">${money(c.price)} each</div></div>
+  <div class="qty"><button type="button" data-dec="${c.id}" aria-label="Decrease ${esc(c.name)} quantity">−</button><b>${c.qty}</b><button type="button" data-inc="${c.id}" aria-label="Increase ${esc(c.name)} quantity">+</button></div>
+  <b>${money(c.price*c.qty)}</b><button type="button" class="btn danger cart-remove" data-remove="${c.id}" aria-label="Remove ${esc(c.name)} from bill">×</button>
+ </div>`).join('')||'<p class="muted center cart-empty">No products added yet</p>';
+ $('subtotal').textContent=money(t.sub);
+ $('grandTotal').textContent=money(t.total);
+ const received=+$('received').value||0;
+ $('change').textContent=received>=t.total?money(received-t.total):'Due '+money(t.total-received);
+}
 function add(id){let p=data.products.find(p=>p.id===id),c=cart.find(c=>c.id===id);if(!p||p.stock<=0)return msg('Out of stock.');if(c){if(c.qty>=p.stock)return msg('Not enough stock.');c.qty++}else cart.push({...p,qty:1});cartView()}
 $('productGrid').addEventListener('click',e=>{let b=e.target.closest('[data-add]');if(b)add(+b.dataset.add)});
 $('cartItems').addEventListener('click',e=>{let b=e.target.closest('button');if(!b)return;let id=+(b.dataset.inc||b.dataset.dec||b.dataset.remove),c=cart.find(x=>x.id===id),p=data.products.find(x=>x.id===id);if(!c)return;if(b.dataset.inc!==undefined){if(c.qty>=p.stock)return msg('Not enough stock.');c.qty++}else if(b.dataset.dec!==undefined){if(--c.qty<=0)cart=cart.filter(x=>x.id!==id)}else cart=cart.filter(x=>x.id!==id);cartView()});
@@ -260,7 +436,41 @@ function settings(){let s=data.settings;$('storeName').value=s.name||'';$('store
 function purchaseOptions(){$('purchaseProduct').innerHTML='<option value="">Choose a product…</option>'+data.products.map(p=>'<option value="'+p.id+'">'+esc(p.name)+' · Current stock: '+p.stock+'</option>').join('')}
 function purchasesView(){const rows=data.purchases||[];$('purchaseCount').textContent=rows.length+' purchases';$('purchaseRows').innerHTML=rows.slice().reverse().map(x=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.supplier)+'</td><td>'+esc(x.productName)+'</td><td>'+x.qty+'</td><td>'+money(x.unitCost)+'</td><td><b>'+money(x.total)+'</b></td><td>'+esc(x.note||'—')+'</td></tr>').join('')||'<tr><td colspan="7">No purchases recorded yet.</td></tr>';purchaseOptions()}
 function expensesView(){const rows=data.expenses||[],month=isoToday().slice(0,7),sum=rows.filter(x=>String(x.date).startsWith(month)).reduce((a,x)=>a+Number(x.amount||0),0);$('expenseMonthTotal').textContent='This month: '+money(sum);$('expenseRows').innerHTML=rows.slice().reverse().map(x=>'<tr><td>'+esc(x.date)+'</td><td><b>'+esc(x.category)+'</b></td><td>'+esc(x.note||'—')+'</td><td>'+esc(x.payment)+'</td><td>'+money(x.amount)+'</td><td><button class="btn danger" data-expense-delete="'+esc(x.id)+'">Delete</button></td></tr>').join('')||'<tr><td colspan="6">No expenses recorded yet.</td></tr>'}
-function dashboard(){const today=isoToday(),salesToday=data.sales.filter(s=>s.day===today),returnsToday=(data.returns||[]).filter(r=>r.day===today),revenue=salesToday.reduce((a,s)=>a+s.total,0)-returnsToday.reduce((a,r)=>a+Number(r.value||0),0),gross=salesToday.reduce((a,s)=>a+(s.profit||0),0)-returnsToday.reduce((a,r)=>a+Number(r.profitAdjustment||0),0),expenseToday=(data.expenses||[]).filter(x=>x.date===today).reduce((a,x)=>a+Number(x.amount||0),0),stockValue=data.products.reduce((a,p)=>a+(Number(p.cost)||0)*(Number(p.stock)||0),0);$('dashboardDate').textContent=new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});$('dashRevenue').textContent=money(revenue);$('dashProfit').textContent=money(gross-expenseToday);$('dashProducts').textContent=data.products.length;$('dashStockValue').textContent=money(stockValue);$('dashDue').textContent=money([...new Set(data.sales.map(s=>(s.customer||'').trim()).filter(Boolean))].reduce((n,name)=>n+dueBalance(name),0));$('dashExpenses').textContent=money(expenseToday);$('dashRecent').innerHTML=data.sales.slice(0,6).map(s=>'<div class="row" style="padding:9px 0;border-bottom:1px solid var(--line)"><span><b>'+esc(s.invoice)+'</b><br><span class="muted small">'+esc(s.customer||'Walk-in')+'</span></span><b>'+money(Number(s.total||0)-returnedValue(s))+'</b></div>').join('')||'<p class="muted">No transactions yet.</p>';const low=data.products.filter(p=>Number(p.stock)<=5),soon=data.products.filter(p=>p.expiryDate&&p.stock>0&&Math.ceil((new Date(p.expiryDate+'T00:00:00')-new Date(new Date().toDateString()))/86400000)<=30);$('dashLowStock').innerHTML=low.slice(0,6).map(p=>'<div class="row" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>'+esc(p.name)+'</span><b class="danger">'+p.stock+' left</b></div>').join('')+soon.slice(0,6).map(p=>'<div class="row" style="padding:8px 0;border-bottom:1px solid var(--line)"><span>'+esc(p.name)+' <span class="muted small">· expiry '+esc(p.expiryDate)+'</span></span><b class="danger">'+(new Date(p.expiryDate+'T00:00:00')<new Date(new Date().toDateString())?'Expired':'Expiring')+'</b></div>').join('')||'<p class="muted">No low-stock or expiry alerts.</p>'}
+function dashboard(){
+ const today=isoToday();
+ const salesToday=data.sales.filter(s=>s.day===today);
+ const returnsToday=(data.returns||[]).filter(r=>r.day===today);
+ const revenue=salesToday.reduce((sum,s)=>sum+s.total,0)-returnsToday.reduce((sum,r)=>sum+Number(r.value||0),0);
+ const gross=salesToday.reduce((sum,s)=>sum+(s.profit||0),0)-returnsToday.reduce((sum,r)=>sum+Number(r.profitAdjustment||0),0);
+ const expenseToday=(data.expenses||[]).filter(x=>x.date===today).reduce((sum,x)=>sum+Number(x.amount||0),0);
+ const stockValue=data.products.reduce((sum,p)=>sum+(Number(p.cost)||0)*(Number(p.stock)||0),0);
+ $('dashboardDate').textContent=new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+ $('dashRevenue').textContent=money(revenue);
+ $('dashProfit').textContent=money(gross-expenseToday);
+ $('dashProducts').textContent=data.products.length;
+ $('dashStockValue').textContent=money(stockValue);
+ $('dashDue').textContent=money([...new Set(data.sales.map(s=>(s.customer||'').trim()).filter(Boolean))].reduce((sum,name)=>sum+dueBalance(name),0));
+ $('dashExpenses').textContent=money(expenseToday);
+ $('dashRecent').innerHTML=data.sales.slice(0,6).map(s=>`<div class="recent-row">
+  <div class="recent-main"><b>${esc(s.invoice)}</b><span class="muted small">${esc(s.customer||'Walk-in')} · ${esc(s.date||s.day||'')}</span></div>
+  <span class="recent-method">${esc(s.payment||'—')}</span>
+  <b class="recent-amount">${money(Number(s.total||0)-returnedValue(s))}</b>
+ </div>`).join('')||'<div class="empty-state">No transactions yet.</div>';
+ const startOfToday=new Date(new Date().toDateString());
+ const alerts=data.products.map(p=>{
+  const stock=Number(p.stock)||0;
+  const expiry=p.expiryDate?new Date(p.expiryDate+'T00:00:00'):null;
+  const days=expiry?Math.ceil((expiry-startOfToday)/86400000):Infinity;
+  const low=stock<=5;
+  const expiryAlert=Boolean(p.expiryDate&&stock>0&&days<=30);
+  if(!low&&!expiryAlert)return null;
+  return {p,stock,low,expiryAlert,expired:expiryAlert&&days<0};
+ }).filter(Boolean).slice(0,8);
+ $('dashLowStock').innerHTML=alerts.map(({p,stock,low,expiryAlert,expired})=>`<div class="stock-alert-row">
+  <div class="stock-alert-copy"><b>${esc(p.name)}</b><span class="muted small">${stock} in stock · ${esc(p.category||'Uncategorized')}</span></div>
+  <div class="stock-alert-tags">${low?'<span class="alert-pill alert-low">'+(stock<=0?'Out of stock':'Low stock')+'</span>':''}${expiryAlert?'<span class="alert-pill '+(expired?'alert-expired':'alert-expiry')+'">'+(expired?'Expired':'Expiry soon')+'</span>':''}</div>
+ </div>`).join('')||'<div class="empty-state">No low-stock or expiry alerts.</div>';
+}
 $('purchaseProduct').onchange=()=>{const p=data.products.find(x=>String(x.id)===$('purchaseProduct').value);if(p)$('purchaseCost').value=p.cost||0;purchaseTotal()};
 function purchaseTotal(){$('purchaseTotal').textContent=money((+$('purchaseQty').value||0)*(+$('purchaseCost').value||0))}
 ['purchaseQty','purchaseCost'].forEach(id=>$(id).addEventListener('input',purchaseTotal));
